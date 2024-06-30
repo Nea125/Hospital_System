@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 public class Staff extends javax.swing.JFrame {
      SimpleDateFormat d = new SimpleDateFormat("dd/MMM/yyyy");
-      
      StaffController controller = new StaffController();
     public Staff() {
        initComponents();
@@ -68,6 +67,7 @@ public class Staff extends javax.swing.JFrame {
         txtworkstatus = new javax.swing.JTextField();
         txtaddress = new javax.swing.JTextField();
         txtbirthdate = new com.toedter.calendar.JDateChooser();
+        cbsearch = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1307, 662));
@@ -265,7 +265,7 @@ public class Staff extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbtable);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(360, 290, 1010, 280);
+        jScrollPane2.setBounds(370, 260, 1010, 280);
 
         txthiredate.setBackground(new java.awt.Color(255, 255, 255));
         txthiredate.setForeground(new java.awt.Color(0, 0, 0));
@@ -282,8 +282,13 @@ public class Staff extends javax.swing.JFrame {
         txtsearch.setForeground(new java.awt.Color(0, 0, 0));
         txtsearch.setAlignmentX(10.0F);
         txtsearch.setBorder(null);
+        txtsearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtsearchKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtsearch);
-        txtsearch.setBounds(450, 200, 890, 40);
+        txtsearch.setBounds(450, 200, 750, 40);
 
         txtemail.setBackground(new java.awt.Color(255, 255, 255));
         txtemail.setForeground(new java.awt.Color(0, 0, 0));
@@ -325,6 +330,15 @@ public class Staff extends javax.swing.JFrame {
         txtbirthdate.setAlignmentX(10.0F);
         getContentPane().add(txtbirthdate);
         txtbirthdate.setBounds(120, 310, 220, 30);
+
+        cbsearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Search Option", "Search By ID", "Search By FirstName", "Search By LastName", " " }));
+        cbsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbsearchActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbsearch);
+        cbsearch.setBounds(1210, 200, 130, 40);
 
         pack();
         setLocationRelativeTo(null);
@@ -426,6 +440,43 @@ public class Staff extends javax.swing.JFrame {
         txtworkstatus.setText(controller.getModel().getValueAt(row, 11).toString());
     }//GEN-LAST:event_tbtableMouseClicked
 
+    private void txtsearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyReleased
+      String search = txtsearch.getText();
+      if(search.equals("")){
+          controller.FetchData();
+      }
+      else{
+         
+                int option = cbsearch.getSelectedIndex();
+                switch(option)
+                {
+
+                    // search by ID
+                    case 1:{
+                        int id = Integer.parseInt(txtsearch.getText());
+                        controller.searchByID(id);
+                    }break;
+                     // search by FirstName
+                    case 2:{
+                        String searchbyfirstname = txtsearch.getText();
+                        controller.searchByFirstName(searchbyfirstname);
+
+                    }break;
+                     // search by LastName
+                    case 3:{
+                    String searchlastname = txtsearch.getText();
+                        controller.searchByLastName(searchlastname);
+                    }break;
+                }
+      }
+       
+        
+    }//GEN-LAST:event_txtsearchKeyReleased
+
+    private void cbsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbsearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbsearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -475,6 +526,7 @@ public class Staff extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton btnsave;
     private necesario.MaterialButton btnupdate;
     private javax.swing.JComboBox<String> cbgender;
+    private javax.swing.JComboBox<String> cbsearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

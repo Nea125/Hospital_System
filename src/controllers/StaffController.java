@@ -144,6 +144,113 @@ public class StaffController {
            JOptionPane.showMessageDialog(null, e);
        }
    }
-    
+  
+  
+  public void searchByID(int id) {
+    try {
+        sql = "SELECT StaffID, FirstName, LastName, Age, Sex, BirthDate, StaffPossition, Address, Phone, Email, HireDate, WorkStatus FROM tbstaff WHERE staffID =?";
+        PreparedStatement ps = db.connection().prepareStatement(sql);
+        ps.setInt(1, id); // Using LIKE to search for partial matches
+        
+        ResultSet rs = ps.executeQuery();
+        
+        // Clear existing rows in the model
+        model.setRowCount(0);
+        
+        // Iterate through the result set and add rows to the model
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("StaffID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getInt("Age"),
+                rs.getString("Sex"),
+                rs.getString("BirthDate"),
+                rs.getString("StaffPossition"),
+                rs.getString("Address"),
+                rs.getString("Phone"),
+                rs.getString("Email"),
+                rs.getString("HireDate"),
+                rs.getInt("WorkStatus")
+            };
+            model.addRow(row);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+    public void searchByFirstName(String name) {
+    try {
+        sql = "SELECT StaffID, FirstName, LastName, Age, Sex, BirthDate, StaffPossition, Address, Phone, Email, HireDate, WorkStatus FROM tbstaff WHERE FirstName LIKE ?";
+        PreparedStatement ps = db.connection().prepareStatement(sql);
+        ps.setString(1, "%" + name + "%"); // Using LIKE to search for partial matches
+        
+        ResultSet rs = ps.executeQuery();
+        
+        // Clear existing rows in the model
+        model.setRowCount(0);
+        
+        // Iterate through the result set and add rows to the model
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("StaffID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getInt("Age"),
+                rs.getString("Sex"),
+                rs.getString("BirthDate"),
+                rs.getString("StaffPossition"),
+                rs.getString("Address"),
+                rs.getString("Phone"),
+                rs.getString("Email"),
+                rs.getString("HireDate"),
+                rs.getInt("WorkStatus")
+            };
+            model.addRow(row);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+    public void searchByLastName(String name) {
+    try {
+        sql = "SELECT StaffID, FirstName, LastName, Age, Sex, BirthDate, StaffPossition, Address, Phone, Email, HireDate, WorkStatus FROM tbstaff WHERE LastName LIKE ?";
+        PreparedStatement ps = db.connection().prepareStatement(sql);
+        ps.setString(1, "%" + name + "%"); // Using LIKE to search for partial matches
+        
+        ResultSet rs = ps.executeQuery();
+        
+        // Clear existing rows in the model
+        model.setRowCount(0);
+        
+        // Iterate through the result set and add rows to the model
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("StaffID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getInt("Age"),
+                rs.getString("Sex"),
+                rs.getString("BirthDate"),
+                rs.getString("StaffPossition"),
+                rs.getString("Address"),
+                rs.getString("Phone"),
+                rs.getString("Email"),
+                rs.getString("HireDate"),
+                rs.getInt("WorkStatus")
+            };
+            model.addRow(row);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
 }
 

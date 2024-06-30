@@ -133,6 +133,102 @@ public class PatienController {
            JOptionPane.showMessageDialog(null, e);
        }
    }
+ public void searchByID(int id) {
+    try {
+        String sql = "SELECT PatientID, FirstName, LastName, Age, Gender, Address, Phone, BirthDate FROM tbpatient WHERE PatientID = ?";
+        PreparedStatement ps = db.connection().prepareStatement(sql);
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        // Clear existing rows in the model
+        model.setRowCount(0);
+        
+        // Iterate through the result set and add rows to the model
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("PatientID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getInt("Age"),
+                rs.getString("Gender"),
+                rs.getString("Address"),
+                rs.getString("Phone"),
+                rs.getString("BirthDate")
+            };
+            model.addRow(row);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace(); // Use for debugging, remove in production
+    }
+}
+ 
+ public void searchByFirstName(String name) {
+    try {
+        String sql = "SELECT PatientID, FirstName, LastName, Age, Gender, Address, Phone, BirthDate FROM tbpatient WHERE FirstName  LIKE ?";
+        PreparedStatement ps = db.connection().prepareStatement(sql);
+        ps.setString(1, "%" + name + "%"); // Using LIKE to search for partial matches
+        
+        ResultSet rs = ps.executeQuery();
+        
+        // Clear existing rows in the model
+        model.setRowCount(0);
+        
+        // Iterate through the result set and add rows to the model
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("PatientID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getInt("Age"),
+                rs.getString("Gender"),
+                rs.getString("Address"),
+                rs.getString("Phone"),
+                rs.getString("BirthDate")
+            };
+            model.addRow(row);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace(); // Use for debugging, remove in production
+    }
+}
+ 
+ public void searchByLastName(String name) {
+    try {
+        String sql = "SELECT PatientID, FirstName, LastName, Age, Gender, Address, Phone, BirthDate FROM tbpatient WHERE LastName  LIKE ?";
+        PreparedStatement ps = db.connection().prepareStatement(sql);
+        ps.setString(1, "%" + name + "%"); // Using LIKE to search for partial matches
+        
+        ResultSet rs = ps.executeQuery();
+        
+        // Clear existing rows in the model
+        model.setRowCount(0);
+        
+        // Iterate through the result set and add rows to the model
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("PatientID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getInt("Age"),
+                rs.getString("Gender"),
+                rs.getString("Address"),
+                rs.getString("Phone"),
+                rs.getString("BirthDate")
+            };
+            model.addRow(row);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace(); // Use for debugging, remove in production
+    }
+}
+
 }
 
 
